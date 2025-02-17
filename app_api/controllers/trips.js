@@ -23,6 +23,79 @@ const tripsList = async(req, res) => {
     }
 };
 
+// POST: /trips - adds new trip
+const tripsAddTrip = async(req, res) => {
+
+    const newTrip = new Trip({
+        code: req.body.code, 
+        name: req.body.name, 
+        length: req.body.length, 
+        start: req.body.start, 
+        resort: req.body.resort, 
+        perPerson: req.body.perPerson,
+        image: req.body.image,
+        description: req.body.description
+    });
+
+    const q = await newTrip.save();
+
+    if ( !q) {
+        return res // database returned no data 
+            .status(404)
+            .json(err);
+
+    } else {
+        return res // return new trip 
+            .status(200)
+            .json(q)
+    }
+
+}
+
+// PUT: /trips/:tripCode - Updates Trip
+const tripsUpdateTrip = async(req, res) => {
+
+    // Uncomment for debugging
+    //console.log(req.params);
+    //console.log(req.body);
+
+    // solution to data persistance issue 
+    const updateData =  {
+        code: req.body.code,
+        name: req.body.name,
+        length: req.body.length,
+        start: req.body.start,
+        resort: req.body.resort,
+        perPerson: req.body.perPerson,
+        image: req.body.image,
+        description: req.body.description
+    };
+    delete updateData._id;
+        
+    const updatedTrip = await Trip
+    .findOneAndUpdate(
+        { 'code' : req.params.tripCode },
+        updateData,
+        //{new: true, runValidators: true} 
+    )
+    .exec();
+    
+    if(!updatedTrip)
+    { // Database returned no data
+        return res
+            .status(400)
+            .json(err);
+    } else { // Return resulting updated trip
+        return res
+            .status(201)
+            .json(updatedTrip);
+    }
+
+    // Uncomment the following line to show results of operation
+    // on the console
+    // console.log(q);
+};
+
 // GET: /trips/:tripCode - lists a single trip 
 const tripsFindByCode = async(req, res) => {
     const q = await Model
@@ -46,5 +119,7 @@ const tripsFindByCode = async(req, res) => {
 
 module.exports = {
     tripsList,
-    tripsFindByCode
+    tripsFindByCode,
+    tripsAddTrip, 
+    tripsUpdateTrip
 }
