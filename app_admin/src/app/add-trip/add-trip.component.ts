@@ -54,5 +54,5 @@ export class AddTripComponent implements OnInit{
     // get the form short name to access the form fields
     get f() { return this.addForm.controls; }
 
-  }
+}
 
