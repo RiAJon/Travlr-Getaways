@@ -1,4 +1,4 @@
-#Travlr Getaways Application
+# Travlr Getaways Application
 
 In this project, I worked with the **MEAN** stack (MongoDB, Express, Angular, and Node.js) to develop a travel booking website for Travlr Getaways. While I did not build the application from scratch, I was guided through the development and gained insight into how a full stack web application is structured. The frontend was developed as a Single-Page Application (SPA) using Angular, allowing for a seamless user experience with dynamic content updates. The backend was built with Node.js and Express, following an MVC architecture to manage routes, controllers, and models efficiently. MongoDB, a NoSQL database, was integrated using Mongoose to store travel packages, user bookings, and customer data, ensuring scalability and flexibility.
 
